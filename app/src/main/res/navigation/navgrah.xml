@@ -3,16 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navgrah"
-    app:startDestination="@id/mainActivity">
+    app:startDestination="@id/homeScreenFragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.bynestecommerce.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+
     <fragment
-        android:id="@+id/homepage"
-        android:name="com.example.bynestecommerce.Home.homepage"
-        android:label="fragment_homepage"
-        tools:layout="@layout/fragment_homepage" />
+        android:id="@+id/homeScreenFragment"
+        android:name="com.example.bynestecommerce.Home.HomeScreenFragment"
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" />
 </navigation>
