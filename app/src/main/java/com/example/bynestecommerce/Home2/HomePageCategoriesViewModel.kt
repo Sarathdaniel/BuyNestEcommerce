@@ -1,11 +1,13 @@
 package com.example.bynestecommerce.Home2
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
+
 import androidx.lifecycle.ViewModel
 import com.example.bynestecommerce.ApiBaseClient
 import com.example.bynestecommerce.ApiBaseInterface
-import com.example.bynestecommerce.Home.CategoriesAdapter
-import com.example.bynestecommerce.ProductDetail
+
+
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,8 +17,11 @@ class HomePageCategoriesViewModel : ViewModel() {
 
     private lateinit var apiInterface: ApiBaseInterface
 
-    var categoriesArrayList: ArrayList<String> = ArrayList()
 
+    val responseListLivedata: MutableLiveData<ArrayList<String>> by lazy {
+        MutableLiveData<ArrayList<String>>()
+    }
+    var categoriesArrayList: ArrayList<String> = ArrayList()
 
 
     init {
@@ -24,24 +29,37 @@ class HomePageCategoriesViewModel : ViewModel() {
     }
 
 
-    
-    fun getCategories () {
+    fun getCategories() {
+
 
         apiInterface.getCategoriesApi().enqueue(object : Callback<ArrayList<String>> {
             override fun onResponse(
                 call: Call<ArrayList<String>>,
                 response: Response<ArrayList<String>>
             ) {
-                TODO("Not yet implemented")
+
+                if (response.isSuccessful && response.body() != null) {
+                    categoriesArrayList = response.body()!!
+                    responseListLivedata.postValue(categoriesArrayList)
+
+                    Log.d("Api Response ", categoriesArrayList.toString())
+                }
+
             }
 
             override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
-                TODO("Not yet implemented")
+                t.printStackTrace()
+                Log.d("API RESPONSE", t.toString())
             }
-
-
         })
+
+
     }
 
-
 }
+
+
+
+
+
+
